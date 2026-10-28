@@ -1,55 +1,50 @@
-# ProyectAngular
+# AdoptaPet — Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.8.
+Panel web para administrar el proceso de adopción de mascotas. Permite a administradores y trabajadores gestionar animales, adoptantes, solicitudes y entregas mediante la API de AdoptaPet.
 
-## Development server
+## Funcionalidades
 
-To start a local development server, run:
+- Inicio y cierre de sesión, con navegación y acceso según el rol.
+- Registro y gestión de mascotas con fotografías.
+- Consulta de adoptantes y gestión de su estado.
+- Evaluación de solicitudes: aprobación, rechazo, cancelación y finalización.
+- Programación de entregas, reprogramaciones y registro de inasistencias.
+- Descarga de documentos y carga de actas firmadas.
+- Administración de trabajadores y reportes PDF para administradores.
 
-```bash
-ng serve
-```
+## Tecnologías
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Angular 21 · TypeScript 5.9 · RxJS · Angular Router · HttpClient · CSS · Vitest
 
-## Code scaffolding
+## Instalación y ejecución
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Requiere **Node.js compatible con Angular 21**, **npm** y el [backend de AdoptaPet](https://github.com/thoonidev/AdoptaPet-Backend) configurado y en ejecución. El proyecto declara `npm@11.12.1` como gestor de paquetes.
 
 ```bash
-ng generate --help
+git clone https://github.com/thoonidev/AdoptaPet-Frontend.git
+cd AdoptaPet-Frontend
+npm install
+npm start
 ```
 
-## Building
+Abre `http://localhost:4200`. Inicia sesión con una cuenta del backend que tenga el rol `ROLE_ADMIN` o `ROLE_TRABAJADOR`; las rutas de este panel están restringidas a esos perfiles.
 
-To build the project run:
+## Conexión con el backend
 
-```bash
-ng build
-```
+La aplicación utiliza `http://localhost:8080` como dirección del servidor. Las URL están definidas directamente en `src/app/services/`; no se requiere un archivo `.env`.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Si cambias la dirección del backend, actualiza también las URL de fotografías y documentos en:
 
-## Running unit tests
+- `src/app/components/lista-mascotas/lista-mascotas.ts`
+- `src/app/components/solicitud-detalle/solicitud-detalle.ts`
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+El backend debe permitir el origen `http://localhost:4200` en su configuración CORS. La autenticación utiliza HTTP Basic mediante un interceptor y conserva la sesión en `localStorage`.
 
-```bash
-ng test
-```
+## Comandos
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+| Comando | Descripción |
+| --- | --- |
+| `npm start` | Inicia el servidor de desarrollo. |
+| `npm run build` | Genera la compilación de producción en `dist/proyect-angular/`. |
+| `npm run watch` | Compila en modo desarrollo y observa los cambios. |
+| `npm test` | Ejecuta las pruebas con Vitest mediante Angular CLI. |
